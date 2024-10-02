@@ -1,18 +1,36 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.EmployeeDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.example.demo.entities.EmployeeEntity;
+import com.example.demo.repositories.EmployeeRepository;
+import org.springframework.web.bind.annotation.*;
 
+@RequestMapping(path= "/employee")
 public class EmployeeController {
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
     @GetMapping(path = "/")
     public String getMyName(){
         return "AViral Sharma";
     }
-    @GetMapping("/employees/{EmployeeId")
-    public EmployeeDTO getEmployeeById(@PathVariable String EmployeeId){
-        return
+
+    @PostMapping
+    public String createNewEmployee(@RequestBody EmployeeDTO employeeDTO){
+        return "hello";
+    }
+
+    @PutMapping
+    public String updateEmployeeById(){
+        return "a";
+    }
+
+    @GetMapping(path="/{employeeId")
+    public EmployeeEntity getEmployeeById(@RequestParam Long id){
+        return EmployeeRepository.getById(id).orElse(null);
     }
 
 
