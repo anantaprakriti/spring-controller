@@ -3,14 +3,15 @@ package com.example.demo.controllers;
 import com.example.demo.dto.EmployeeDTO;
 import com.example.demo.entities.EmployeeEntity;
 import com.example.demo.repositories.EmployeeRepository;
+import com.example.demo.services.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(path= "/employee")
 public class EmployeeController {
-    private final EmployeeRepository employeeRepository;
+    private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @GetMapping(path = "/")
@@ -30,7 +31,7 @@ public class EmployeeController {
 
     @GetMapping(path="/{employeeId")
     public EmployeeEntity getEmployeeById(@RequestParam Long id){
-        return EmployeeRepository.getById(id).orElse(null);
+        return EmployeeService.getEmployeeById(id).orElse(null);
     }
 
 
